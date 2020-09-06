@@ -19,3 +19,31 @@ CREATE TRIGGER update_timestamp
 BEFORE UPDATE 
 ON users FOR EACH ROW 
 EXECUTE PROCEDURE update_timestamp();
+
+CREATE TABLE questions(
+    id SERIAL PRIMARY KEY,
+    question VARCHAR(255) NOT NULL,
+    answer VARCHAR(255) NOT NULL,
+    inserted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TRIGGER update_timestamp 
+BEFORE UPDATE 
+ON questions FOR EACH ROW 
+EXECUTE PROCEDURE update_timestamp();
+
+CREATE TABLE results(
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    score INT NOT NULL,
+    inserted_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TRIGGER update_timestamp 
+BEFORE UPDATE 
+ON results FOR EACH ROW 
+EXECUTE PROCEDURE update_timestamp();
+
+/*should I add a table for quiz types???*/
