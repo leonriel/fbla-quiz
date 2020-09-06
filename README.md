@@ -1,1 +1,1 @@
-# fbla-quiz
+# FBLA quiz generator.
