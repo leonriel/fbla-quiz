@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "For FBLA quiz generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonriel/fbla-quiz-generator.git"
+  },
+  "author": "leonriel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leonriel/fbla-quiz-generator/issues"
+  },
+  "homepage": "https://github.com/leonriel/fbla-quiz-generator#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
