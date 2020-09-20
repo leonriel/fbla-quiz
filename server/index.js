@@ -35,7 +35,7 @@ app.get("/users/:id", async (req, res) => {
 })
 
 //get questions
-app.get("/questions", async (req, res) => {
+app.get("/questions", async (req, res) => { //will probably want to make rules/functions for each quiz type and question type and call those
     try {
         const { ids } = req.body;
         let query = format("SELECT * FROM questions WHERE id IN %L", [ids]);
@@ -44,6 +44,17 @@ app.get("/questions", async (req, res) => {
         res.json(questions.rows);
     } catch (error) {
         console.error(error.message);
+    }
+})
+
+//get duplicate question types
+app.get("/question_types", async (res) => {
+    try {
+        const types = await pool.query("SELECT * FROM question_types ORDER BY RANDOM() LIMIT 2")
+
+        res.json(types.rows);
+    } catch (error) {
+        console.log(error.message);
     }
 })
 
@@ -67,6 +78,17 @@ app.get("/results/:userId", async (req, res) => {
         const result = await pool.query("SELECT * FROM results WHERE user_id = $1", [userId]);
 
         res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+//get quiz type
+app.get("/quiz_types", async (res) => {
+    try {
+        const type = await pool.query("SELECT * FROM quiz_types ORDER BY RANDOM() LIMIT 1") // This query takes a long time for large tables
+
+        res.json(type.rows);
     } catch (error) {
         console.error(error.message);
     }
