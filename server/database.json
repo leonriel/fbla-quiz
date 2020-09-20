@@ -1,0 +1,11 @@
+{
+    "development": {
+        "host": "localhost",
+        "user": "postgres",
+        "password": "dl6859",
+        "database": "fbla_quiz_generator",
+        "driver": "pg",
+        "port": 5432,
+        "multipleStatements": true
+    }, "sql-file": true
+}
