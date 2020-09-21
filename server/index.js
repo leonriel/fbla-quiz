@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const pool = require("./db")
-const format = require("pg-format")
 
 //middleware
 app.use(cors());
@@ -35,11 +34,9 @@ app.get("/users/:id", async (req, res) => {
 })
 
 //get questions
-app.get("/questions", async (req, res) => { //will probably want to make rules/functions for each quiz type and question type and call those
+app.get("/questions", async (res) => {
     try {
-        const { ids } = req.body;
-        let query = format("SELECT * FROM questions WHERE id IN %L", [ids]);
-        const questions = await pool.query(query); 
+        const questions = await pool.query("SELECT * FROM questions ORDER BY RANDOM() LIMIT 5"); 
 
         res.json(questions.rows);
     } catch (error) {
