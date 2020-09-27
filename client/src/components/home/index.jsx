@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Card, CardBody, CardTitle, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
 const HomeIndex = () => {
     const [name, setName] = useState("");
+    const history = useHistory();
 
     const onSubmitInformation = async (e) => {
         e.preventDefault();
@@ -14,7 +16,8 @@ const HomeIndex = () => {
                 body: JSON.stringify(body)
             });
 
-            console.log(response)
+            console.log(response);
+            history.push("/quiz");
         } catch (error) {
             console.error(error.message)
         }

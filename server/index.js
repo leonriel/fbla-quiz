@@ -34,7 +34,7 @@ app.get("/users/:id", async (req, res) => {
 })
 
 //get questions
-app.get("/questions", async (res) => {
+app.get("/questions", async (req, res) => {
     try {
         const questions = await pool.query("SELECT * FROM questions ORDER BY RANDOM() LIMIT 5"); 
 
@@ -45,7 +45,7 @@ app.get("/questions", async (res) => {
 })
 
 //get duplicate question types
-app.get("/question_types", async (res) => {
+app.get("/question_types", async (req, res) => {
     try {
         const types = await pool.query("SELECT * FROM question_types ORDER BY RANDOM() LIMIT 2")
 
@@ -81,7 +81,7 @@ app.get("/results/:userId", async (req, res) => {
 })
 
 //get quiz type
-app.get("/quiz_types", async (res) => {
+app.get("/quiz_types", async (req, res) => {
     try {
         const type = await pool.query("SELECT * FROM quiz_types ORDER BY RANDOM() LIMIT 1") // This query takes a long time for large tables
 
