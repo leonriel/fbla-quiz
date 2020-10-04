@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, CardBody, CardTitle, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
+// TODO(gabriel) Switch to class component because I need to keep track of state
 const QuizIndex = () => {
     const [questions, setQuestions] = useState([]);
     const [answerOne, setAnswerOne] = useState("");
@@ -9,19 +10,39 @@ const QuizIndex = () => {
     const [answerThree, setAnswerThree] = useState("");
     const [answerFour, setAnswerFour] = useState("");
     const [answerFive, setAnswerFive] = useState("");
+    const [resultOne, setResultOne] = useState(false);
+    const [resultTwo, setResultTwo] = useState(false);
+    const [resultThree, setResultThree] = useState(false);
+    const [resultFour, setResultFour] = useState(false);
+    const [resultFive, setResultFive] = useState(false);
 
     const history = useHistory();
 
     const onSubmitQuiz = async (e) => {
         e.preventDefault();
         try {
-            setAnswerOne(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[0].comparison));
-            setAnswerTwo(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[1].comparison));
-            setAnswerThree(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[2].comparison));
-            setAnswerFour(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[3].comparison));
-            setAnswerFive(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[4].comparison));
+            setResultOne(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[0].comparison));
+            setResultTwo(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[1].comparison));
+            setResultThree(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[2].comparison));
+            setResultFour(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[3].comparison));
+            setResultFive(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[4].comparison));
 
-            history.push("/results");
+            history.push({
+                pathname: "/results", 
+                state: {
+                    questions: questions,
+                    answerOne: answerOne,
+                    answerTwo: answerTwo,
+                    answerThree: answerThree,
+                    answerFour: answerFour,
+                    answerFive: answerFive,
+                    resultOne: resultOne,
+                    resultTwo: resultTwo,
+                    resultThree: resultThree,
+                    resultFour: resultFour,
+                    resultFive: resultFive
+                }
+            });
         } catch (error) {
             console.log(error.message);
         }
