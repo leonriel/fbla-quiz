@@ -19,23 +19,28 @@ const QuizIndex = () => {
             history.push({
                 pathname: "/results", 
                 state: {
-                    // questions: questions,
-                    // answerOne: answerOne,
-                    // answerTwo: answerTwo,
-                    // answerThree: answerThree,
-                    // answerFour: answerFour,
-                    // answerFive: answerFive,
-                    resultOne: answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[0].comparison),
-                    resultTwo: answerTwo.replace(/[,.']/g, "").toLowerCase().includes(questions[1].comparison),
-                    resultThree: answerThree.replace(/[,.']/g, "").toLowerCase().includes(questions[2].comparison),
-                    resultFour: answerFour.replace(/[,.']/g, "").toLowerCase().includes(questions[3].comparison),
-                    resultFive: answerFive.replace(/[,.']/g, "").toLowerCase().includes(questions[4].comparison)
+                    name: history.location.state.name,
+                    questions: questions,
+                    answerOne: answerOne,
+                    answerTwo: answerTwo,
+                    answerThree: answerThree,
+                    answerFour: answerFour,
+                    answerFive: answerFive,
+                    results: {
+                        resultOne: answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[0].comparison),
+                        resultTwo: answerTwo.replace(/[,.']/g, "").toLowerCase().includes(questions[1].comparison),
+                        resultThree: answerThree.replace(/[,.']/g, "").toLowerCase().includes(questions[2].comparison),
+                        resultFour: answerFour.replace(/[,.']/g, "").toLowerCase().includes(questions[3].comparison),
+                        resultFive: answerFive.replace(/[,.']/g, "").toLowerCase().includes(questions[4].comparison)
+                    }
                 }
             });
         } catch (error) {
             console.log(error.message);
         }
     }
+
+    console.log(answerOne)
 
     const getQuestions = async () => {
         try {

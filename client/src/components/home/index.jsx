@@ -17,7 +17,12 @@ const HomeIndex = () => {
             });
 
             console.log(response);
-            history.push("/quiz");
+            history.push({
+                pathname: "/quiz", 
+                state: {
+                    name: name
+                }
+            });
         } catch (error) {
             console.error(error.message)
         }
@@ -25,7 +30,7 @@ const HomeIndex = () => {
 
     return (
         <div>
-            <h1>FBLA Quiz Generator</h1>
+            <h1 style={{color: "#ffffff"}}>FBLA Quiz Generator</h1>
             <Card>
                 <CardBody>
                     <CardTitle>Enter Your Information</CardTitle>
