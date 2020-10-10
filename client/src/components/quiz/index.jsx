@@ -16,16 +16,18 @@ const QuizIndex = () => {
     const onSubmitQuiz = async (e) => {
         e.preventDefault();
         try {
-            history.push({
+            history.replace({
                 pathname: "/results", 
                 state: {
                     name: history.location.state.name,
                     questions: questions,
-                    answerOne: answerOne,
-                    answerTwo: answerTwo,
-                    answerThree: answerThree,
-                    answerFour: answerFour,
-                    answerFive: answerFive,
+                    answers: {
+                        answerOne: answerOne,
+                        answerTwo: answerTwo,
+                        answerThree: answerThree,
+                        answerFour: answerFour,
+                        answerFive: answerFive
+                    },
                     results: {
                         resultOne: answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[0].comparison),
                         resultTwo: answerTwo.replace(/[,.']/g, "").toLowerCase().includes(questions[1].comparison),
@@ -64,8 +66,8 @@ const QuizIndex = () => {
             <div>
                 <Card>
                     <CardBody>
-                        <CardTitle>FBLA Quiz</CardTitle>
-                        <Form onSubmit={onSubmitQuiz}>
+                        <CardTitle><h1>FBLA Quiz</h1></CardTitle>
+                        <Form className="mt-3" onSubmit={onSubmitQuiz}>
                             <FormGroup>
                                 <Label for="answer-one">{questions[0].question}</Label>
                                 <Input type="text" name="answer-one" id="answer-one" placeholder="Answer" value={answerOne} onChange={e => setAnswerOne(e.target.value)} />
@@ -86,7 +88,7 @@ const QuizIndex = () => {
                                 <Label for="question-five">{questions[4].question}</Label>
                                 <Input type="text" name="answer-five" id="answer-five" placeholder="Answer" value={answerFive} onChange={e => setAnswerFive(e.target.value)} />
                             </FormGroup>
-                            <Button>Submit</Button>
+                            <Button color="primary">Submit</Button>
                         </Form>
                     </CardBody>
                 </Card>

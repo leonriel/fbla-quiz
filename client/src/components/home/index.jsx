@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Card, CardBody, CardTitle, Button, Form, FormGroup, Label, Input} from 'reactstrap';
+import { Card, CardBody, CardTitle,CardSubtitle, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 
 const HomeIndex = () => {
     const [name, setName] = useState("");
@@ -17,7 +17,7 @@ const HomeIndex = () => {
             });
 
             console.log(response);
-            history.push({
+            history.replace({
                 pathname: "/quiz", 
                 state: {
                     name: name
@@ -30,16 +30,16 @@ const HomeIndex = () => {
 
     return (
         <div>
-            <h1 style={{color: "#ffffff"}}>FBLA Quiz Generator</h1>
             <Card>
                 <CardBody>
-                    <CardTitle>Enter Your Information</CardTitle>
-                    <Form onSubmit={onSubmitInformation}>
+                    <CardTitle><h1>FBLA Quiz Generator</h1></CardTitle>
+                    <CardSubtitle className="mt-2">Welcome to the FBLA Quiz Generator! You are about to take a 5-question quiz. The questions are randomly selected from a pool of 50 questions. Good luck!</CardSubtitle>
+                    <Form className="mt-4" onSubmit={onSubmitInformation}>
                         <FormGroup>
                             <Label for="name">Enter Your Name</Label>
                             <Input type="text" name="name" id="name" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
                         </FormGroup>
-                        <Button>Submit</Button>
+                        <Button color="primary">Next</Button>
                     </Form>
                 </CardBody>
             </Card>
