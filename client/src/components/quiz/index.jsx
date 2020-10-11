@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card, CardBody, CardTitle, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
+// TODO(gabriel) Switch to class component because I need to keep track of state
 const QuizIndex = () => {
     const [questions, setQuestions] = useState([]);
     const [answerOne, setAnswerOne] = useState("");
@@ -15,17 +16,33 @@ const QuizIndex = () => {
     const onSubmitQuiz = async (e) => {
         e.preventDefault();
         try {
-            setAnswerOne(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[0].comparison));
-            setAnswerTwo(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[1].comparison));
-            setAnswerThree(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[2].comparison));
-            setAnswerFour(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[3].comparison));
-            setAnswerFive(answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[4].comparison));
-
-            history.push("/results");
+            history.replace({
+                pathname: "/results", 
+                state: {
+                    name: history.location.state.name,
+                    questions: questions,
+                    answers: {
+                        answerOne: answerOne,
+                        answerTwo: answerTwo,
+                        answerThree: answerThree,
+                        answerFour: answerFour,
+                        answerFive: answerFive
+                    },
+                    results: {
+                        resultOne: answerOne.replace(/[,.']/g, "").toLowerCase().includes(questions[0].comparison),
+                        resultTwo: answerTwo.replace(/[,.']/g, "").toLowerCase().includes(questions[1].comparison),
+                        resultThree: answerThree.replace(/[,.']/g, "").toLowerCase().includes(questions[2].comparison),
+                        resultFour: answerFour.replace(/[,.']/g, "").toLowerCase().includes(questions[3].comparison),
+                        resultFive: answerFive.replace(/[,.']/g, "").toLowerCase().includes(questions[4].comparison)
+                    }
+                }
+            });
         } catch (error) {
             console.log(error.message);
         }
     }
+
+    console.log(answerOne)
 
     const getQuestions = async () => {
         try {
@@ -49,8 +66,8 @@ const QuizIndex = () => {
             <div>
                 <Card>
                     <CardBody>
-                        <CardTitle>FBLA Quiz</CardTitle>
-                        <Form onSubmit={onSubmitQuiz}>
+                        <CardTitle><h1>FBLA Quiz</h1></CardTitle>
+                        <Form className="mt-3" onSubmit={onSubmitQuiz}>
                             <FormGroup>
                                 <Label for="answer-one">{questions[0].question}</Label>
                                 <Input type="text" name="answer-one" id="answer-one" placeholder="Answer" value={answerOne} onChange={e => setAnswerOne(e.target.value)} />
@@ -71,7 +88,7 @@ const QuizIndex = () => {
                                 <Label for="question-five">{questions[4].question}</Label>
                                 <Input type="text" name="answer-five" id="answer-five" placeholder="Answer" value={answerFive} onChange={e => setAnswerFive(e.target.value)} />
                             </FormGroup>
-                            <Button>Submit</Button>
+                            <Button color="primary">Submit</Button>
                         </Form>
                     </CardBody>
                 </Card>
